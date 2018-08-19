@@ -36,7 +36,6 @@ void crear_top(int link,const char *topologia,const char *texto){
 		else{
 			ptr = strtok(NULL,"\t");
 			ptr = strtok(NULL,"\t");
-			ptr = strtok(NULL,"\t");
 	 		if(atoi(ptr+2)==linea1 || atoi(ptr+2)==linea2){
 	 			continue;
 	 		}
