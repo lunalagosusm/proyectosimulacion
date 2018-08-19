@@ -382,16 +382,16 @@ void readNetwork(int numIteracion){
             /*fp = fopen("EuroCore.rut", "r");
             CAPACIDAD = 8;
             printf("EuroCore.rut;");*/
-            generaRuta("/Users/pedro/Desktop/proyecto/ArpaNet.top","/Users/pedro/Desktop/proyecto/ArpaNet.rut");
-            fp = fopen("/Users/pedro/Desktop/proyecto/ArpaNet.rut","r");
+            generaRuta("/Redes_y_Rutas/Topología/ArpaNet.top","/Redes_y_Rutas/Topología/ArpaNet.rut");
+            fp = fopen("/Redes_y_Rutas/Rutas/ArpaNet.rut","r");
             CAPACIDAD = 8;
             break;
         default://case 1:
             /*fp = fopen("EON.rut", "r");
             CAPACIDAD = 20;
             printf("EON.rut;");*/
-            generaRuta("/Users/pedro/Desktop/proyecto/ArpaNet.top","/Users/pedro/Desktop/proyecto/ArpaNet.rut");
-            fp = fopen("/Users/pedro/Desktop/proyecto/ArpaNet.rut","r");
+            generaRuta("/Redes_y_Rutas/Topología/ArpaNet.top","/Redes_y_Rutas/Topología/ArpaNet.rut");
+            fp = fopen("/Redes_y_Rutas/Rutas/ArpaNet.rut","r");
             CAPACIDAD = 20;
             break;
         //case 2:
