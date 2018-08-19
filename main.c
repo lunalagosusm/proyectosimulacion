@@ -54,7 +54,7 @@ int main(){
     Evento *p; //puntero al scheduler
     int i,j,k,w,l;
     p = NULL;
-    prob_Bloq = 0.0;
+    prob_Bloq = 1.0;
     carga = 0.3;
     ton = 0.001;
     toff = (ton/carga)-ton;
@@ -66,11 +66,11 @@ int main(){
     {
         readNetwork(i);
 
-        while(prob_Bloq<=0.001)//Criterio de parada Simulador
+        while(prob_Bloq>0.0)//Criterio de parada Simulador
         {
             Ini();
-            printf("%i;", canalesLibres[0]);
-            while(llegadasTot<pow(10,6))
+           
+            while(llegadasTot<pow(10,3))
             {
                 p = popEvento();//Extrae evento
                 if(p->tipo < USUARIOS) Arribo(p);//Verifica si es arribo o salida
@@ -79,8 +79,8 @@ int main(){
             }
 
             prob_Bloq = ((float)blocked/(float)llegadasTot);
-            printf("%i;", blocked);
-            --CAPACIDAD;
+            printf("(%i,%i);",CAPACIDAD, blocked);
+            ++CAPACIDAD;
 
             freeScheduler();//Liberar Scheduler para nueva iteración
         }
@@ -115,7 +115,7 @@ int main(){
             printf("%f;",Prob_user[l-1]);
         }
         /*__ Se reinician variables y se libera la memoria para proxima iteración___*/
-        prob_Bloq = 0.0;
+        prob_Bloq = 1.0;
         for (k = 0; k < NODOS*NODOS; ++k){
             free(datosPath[k]);
             free(datosRutas[k]);
@@ -384,7 +384,7 @@ void readNetwork(int numIteracion){
             printf("EuroCore.rut;");*/
             generaRuta("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","ArpaNet.rut");
             fp = fopen("ArpaNet.rut","r");
-            CAPACIDAD = 25;
+            CAPACIDAD = 1;
             break;
         default://case 1:
             /*fp = fopen("EON.rut", "r");
@@ -431,8 +431,7 @@ void readNetwork(int numIteracion){
     crear_top(enlacesCritico[0],"ArpaNet_new.top","ArpaNet1.top");
     crear_top(enlacesCritico[1],"ArpaNet_new.top","ArpaNet2.top");
     crear_top(enlacesCritico[2],"ArpaNet_new.top","ArpaNet3.top");
-
-
+	 
     fclose(fp);
     //_____________________________________________
 }
@@ -458,9 +457,9 @@ void Ini()//No existen salidas si no hay llegadas
         cnxEject[i] = 0;
     }
     //___INICIALIZACION DE CANALES LIBRES_____
-    canalesLibres = malloc(LINKS*sizeof(int));//Arreglo que maneja los canales libres
+    canalesLibres = malloc((LINKS/2)*sizeof(int));//Arreglo que maneja los canales libres
 
-    for (i = 0; i < LINKS; ++i)
+    for (i = 0; i < (LINKS/2); ++i)
     {
         canalesLibres[i] = CAPACIDAD;
     }
