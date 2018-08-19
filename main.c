@@ -382,16 +382,16 @@ void readNetwork(int numIteracion){
             /*fp = fopen("EuroCore.rut", "r");
             CAPACIDAD = 8;
             printf("EuroCore.rut;");*/
-            generaRuta("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut");
-            fp = fopen("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut","r");
+            generaRuta("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","ArpaNet.rut");
+            fp = fopen("ArpaNet.rut","r");
             CAPACIDAD = 25;
             break;
         default://case 1:
             /*fp = fopen("EON.rut", "r");
             CAPACIDAD = 20;
             printf("EON.rut;");*/
-            generaRuta("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut");
-            fp = fopen("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut","r");
+            generaRuta("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","ArpaNet.rut");
+            fp = fopen("ArpaNet.rut","r");
             CAPACIDAD = 20;
             break;
         //case 2:
@@ -412,7 +412,7 @@ void readNetwork(int numIteracion){
         default:
             fp = fopen("UKNet.rut", "r");
             CAPACIDAD = 21;
-            printf("UKNet.rut;");
+            printf("UKNet.rut;")
             break;*/
     }
 
@@ -427,10 +427,12 @@ void readNetwork(int numIteracion){
 
     maxHops();
     enlacesCriticos();
-    printf("\nenlaces Criterios: %i, %i, %i; ", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
+    printf("\nenlaces Criticos: %i, %i, %i; ", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
     crear_top(enlacesCritico[0],"ArpaNet_new.top","ArpaNet1.top");
     crear_top(enlacesCritico[1],"ArpaNet_new.top","ArpaNet2.top");
     crear_top(enlacesCritico[2],"ArpaNet_new.top","ArpaNet3.top");
+
+
     fclose(fp);
     //_____________________________________________
 }
