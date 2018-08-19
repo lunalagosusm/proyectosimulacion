@@ -70,7 +70,7 @@ int main(){
         {
             Ini();
             printf("%i;", canalesLibres[0]);
-            while(llegadasTot<pow(10,5))
+            while(llegadasTot<pow(10,6))
             {
                 p = popEvento();//Extrae evento
                 if(p->tipo < USUARIOS) Arribo(p);//Verifica si es arribo o salida
@@ -132,6 +132,7 @@ int main(){
 }
 void maxHops(){
     int i,hops;
+    MAX_HOPS = 0;
     for (i = 0; i < NODOS*NODOS; ++i)
     {
         hops = datosRutas[i][2];
@@ -216,8 +217,7 @@ void enlacesCriticos(){
         }
     }
     printf("PRUEBA3\n");
-    printf("\nenlaces Criterios: %i, %i, %i; ", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
-    printf("PRUEBA4\n");
+//   printf("PRUEBA4\n");
 }
 void dataRed(FILE *fp, int datosRed[3]){
     char linea[100];
@@ -382,16 +382,16 @@ void readNetwork(int numIteracion){
             /*fp = fopen("EuroCore.rut", "r");
             CAPACIDAD = 8;
             printf("EuroCore.rut;");*/
-            generaRuta("/Redes_y_Rutas/Topología/ArpaNet.top","/Redes_y_Rutas/Topología/ArpaNet.rut");
-            fp = fopen("/Redes_y_Rutas/Rutas/ArpaNet.rut","r");
-            CAPACIDAD = 8;
+            generaRuta("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut");
+            fp = fopen("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut","r");
+            CAPACIDAD = 25;
             break;
         default://case 1:
             /*fp = fopen("EON.rut", "r");
             CAPACIDAD = 20;
             printf("EON.rut;");*/
-            generaRuta("/Redes_y_Rutas/Topología/ArpaNet.top","/Redes_y_Rutas/Topología/ArpaNet.rut");
-            fp = fopen("/Redes_y_Rutas/Rutas/ArpaNet.rut","r");
+            generaRuta("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut");
+            fp = fopen("/home/simisterio/Desktop/Simulacion de redes/Proyecto/proyectosimulacion/ArpaNet.rut","r");
             CAPACIDAD = 20;
             break;
         //case 2:
@@ -441,7 +441,7 @@ void Ini()//No existen salidas si no hay llegadas
     blocked = 0;
     llegadasExe = 0;
     llegadasTot = 0;
-    MAX_HOPS = 0;
+    //MAX_HOPS = 0;
     for (i = 0; i < 101; ++i)
     {
         COUNTLCG[i] = 0;
