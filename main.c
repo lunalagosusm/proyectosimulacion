@@ -63,7 +63,7 @@ int main(){
     LAMBDA = 1.0/(ton+toff);
     LAMBDAPRIMA = 1.0/(toff);
 
-    for(i=0; i < 3; ++i)// Ejecucion 6 simulaciones (una por red)
+    for(i=0; i < 4; ++i)// Ejecucion 6 simulaciones (una por red)
     {
     	switch(i){
     		case 0:
@@ -82,11 +82,13 @@ int main(){
     			maxHops();
     			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
     			break;
-    		default:
+    		case 3:
     			readNetwork2(enlacesCritico[2]);
     			maxHops();
     			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
     			break;
+            default: 
+                break;
     	}
 
         while(prob_Bloq>0.0)//Criterio de parada Simulador
