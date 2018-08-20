@@ -37,7 +37,8 @@ int enlacesCritico[3];
 void dataRed(FILE *fp, int datosRed[3]);//Obtiene datos generales de la red
 int **getDataRoute(FILE *fp, int nodos);//Obtiene datos de especificos de la ruta
 int **getPathRoute(FILE *fp, int N, int ** datosRutas);//Obtiene path de la ruta
-void readNetwork(int numIteracion);//Manejo de Textos
+void readNetwork(char *rutaEntrada, char *rutaSalida);//Manejo de Textos
+void readNetwork2(int idCamino);
 void Ini();//Se fijan las condiciones iniciales
 void Arribo(Evento* p);//Se procesan los arribos(llegadas)
 void Salida(Evento* p);//Se procesan las salidas
@@ -61,10 +62,31 @@ int main(){
     MU = (1.0/ton);
     LAMBDA = 1.0/(ton+toff);
     LAMBDAPRIMA = 1.0/(toff);
-    int enlacesCritico[3];
-    for(i=0; i < 1; ++i)// Ejecucion 6 simulaciones (una por red)
+
+    for(i=0; i < 3; ++i)// Ejecucion 6 simulaciones (una por red)
     {
-        readNetwork(i);
+    	switch(i){
+    		case 0:
+    			readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "../proyectosimulacion/ArpaNet.rut" );
+    			maxHops();
+    			enlacesCriticos();
+    			break;
+    		case 1:
+    			readNetwork2(enlacesCritico[0]);
+    			maxHops();
+    			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
+    			break;
+    		case 2:
+    			readNetwork2(enlacesCritico[1]);
+    			maxHops();
+    			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
+    			break;
+    		default:
+    			readNetwork2(enlacesCritico[2]);
+    			maxHops();
+    			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
+    			break;
+    	}
 
         while(prob_Bloq>0.0)//Criterio de parada Simulador
         {
@@ -142,7 +164,7 @@ void maxHops(){
     }
 }
 void enlacesCriticos(){
-    int cuentaEnlaces[LINKS/2];
+    int cuentaEnlaces[LINKS];
     int max[3];
     int i, j;
     int source, dest, hops;
@@ -153,7 +175,7 @@ void enlacesCriticos(){
     max[0] = 0;
     max[1] = 0;
     max[2] = 0;
-    for (i = 0; i < LINKS/2; ++i)
+    for (i = 0; i < LINKS; ++i)
     {
         cuentaEnlaces[i]=0;
     }
@@ -175,13 +197,13 @@ void enlacesCriticos(){
         }
     }
     printf("lista cuenta enlaces:\n");
-    for (i = 0; i < LINKS/2; ++i)
+    for (i = 0; i < LINKS; ++i)
     {
         printf("%i ",cuentaEnlaces[i]);
     }
     printf("numero enlaces : %i\n", i);
     printf("PRUEBA0\n");
-    for (j = 0; j < LINKS/2; ++j)
+    for (j = 0; j < LINKS; ++j)
     {
         if(max[0] < cuentaEnlaces[j]){
             max[0] = cuentaEnlaces[j];
@@ -192,7 +214,7 @@ void enlacesCriticos(){
         }
     }
     printf("PRUEBA1\n");
-    for (j = 0; j < LINKS/2; ++j)
+    for (j = 0; j < LINKS; ++j)
     {
         if( (max[1] < cuentaEnlaces[j]) && (j != enlacesCritico[0]) ){
             max[1] = cuentaEnlaces[j];
@@ -203,7 +225,7 @@ void enlacesCriticos(){
         }
     }
     printf("PRUEBA2\n");
-    for (j = 0; j < LINKS/2; ++j)
+    for (j = 0; j < LINKS; ++j)
     {
         //printf("j:%i,",j );
         if( (max[2] < cuentaEnlaces[j]) && ( (j != enlacesCritico[0]) && (j != enlacesCritico[1]) ) ){
@@ -372,54 +394,13 @@ int **getPathRoute(FILE *fp, int N, int ** datosRutas){
     }
     return mat;
 }
-void readNetwork(int numIteracion){
+void readNetwork(char *rutaEntrada, char *rutaSalida){
     //________MANEJO DE TEXTOS________________
     FILE *fp;
 
-    switch(numIteracion)//1 por cada topologia)(0 a 5)
-    {
-        case 0:
-            generaRuta("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","../proyectosimulacion/ArpaNet.rut");
-            fp = fopen("../proyectosimulacion/ArpaNet.rut","r");
-            CAPACIDAD = 1;
-            break;
-        /*case 0:
-            fp = fopen("EuroCore.rut", "r");
-            CAPACIDAD = 8;
-            printf("EuroCore.rut;");
-            generaRuta("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut");
-            fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut","r");
-            CAPACIDAD = 1;
-            break;*/
-        default://case 1:
-            /*fp = fopen("EON.rut", "r");
-            CAPACIDAD = 20;
-            printf("EON.rut;");*/
-            generaRuta("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut");
-            fp = fopen("ArpaNet.rut","r");
-            CAPACIDAD = 20;
-            break;
-        //case 2:
-           /* fp = fopen("ArpaNet.rut", "r");
-            CAPACIDAD = 25;
-            printf("ArpaNet.rut;");
-            break;
-        case 3:
-            fp = fopen("EuroLarge.rut", "r");
-            CAPACIDAD = 47;
-            printf("EuroLarge.rut;");
-            break;
-        case 4:
-            fp = fopen("NSFNet.rut", "r");
-            CAPACIDAD = 15;
-            printf("NSFNet.rut;");
-            break;
-        default:
-            fp = fopen("UKNet.rut", "r");
-            CAPACIDAD = 21;
-            printf("UKNet.rut;")
-            break;*/
-    }
+    generaRuta(rutaEntrada,rutaSalida);//genera .rut y .top
+    fp = fopen(rutaSalida,"r");
+    CAPACIDAD = 1;
 
     dataRed(fp, datosRed);
 
@@ -430,14 +411,28 @@ void readNetwork(int numIteracion){
     datosRutas = getDataRoute(fp, NODOS);
     datosPath = getPathRoute(fp, NODOS, datosRutas);
 
-    maxHops();
-    enlacesCriticos();
-    printf("\nenlaces Criticos: %i, %i, %i; ", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
-    crear_top(enlacesCritico[0],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet1.top");
-    crear_top(enlacesCritico[1],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet2.top");
-    crear_top(enlacesCritico[2],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet3.top");
-    generaRuta2("../proyectosimulacion/ArpaNet1.top","../proyectosimulacion/ArpaNet_1.rut");
-    //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
+    fclose(fp);
+    //_____________________________________________
+}
+void readNetwork2(int idCamino){
+    //________MANEJO DE TEXTOS________________
+    FILE *fp;
+
+    crear_top(idCamino,"../proyectosimulacion/Red_new.top","../proyectosimulacion/Red_falla.top");
+    generaRuta2("../proyectosimulacion/Red_falla.top","../proyectosimulacion/Red_falla.rut");
+    
+    fp = fopen("../proyectosimulacion/Red_falla.rut","r");
+    CAPACIDAD = 1;
+
+    dataRed(fp, datosRed);
+
+    NODOS = datosRed[1];
+    USUARIOS=NODOS*(NODOS-1);
+    LINKS = datosRed[2];
+
+    datosRutas = getDataRoute(fp, NODOS);
+    datosPath = getPathRoute(fp, NODOS, datosRutas);
+
     fclose(fp);
     //_____________________________________________
 }
@@ -463,9 +458,9 @@ void Ini()//No existen salidas si no hay llegadas
         cnxEject[i] = 0;
     }
     //___INICIALIZACION DE CANALES LIBRES_____
-    canalesLibres = malloc((LINKS/2)*sizeof(int));//Arreglo que maneja los canales libres
+    canalesLibres = malloc((LINKS)*sizeof(int));//Arreglo que maneja los canales libres
 
-    for (i = 0; i < (LINKS/2); ++i)
+    for (i = 0; i < (LINKS); ++i)
     {
         canalesLibres[i] = CAPACIDAD;
     }
