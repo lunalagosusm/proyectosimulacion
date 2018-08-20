@@ -240,6 +240,7 @@ void enlacesCriticos(){
         }
     }
     printf("PRUEBA3\n");
+    printf("enlaces criticos: %i,%i,%i;\n", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
 //   printf("PRUEBA4\n");
 }
 void dataRed(FILE *fp, int datosRed[3]){
