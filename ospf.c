@@ -18,7 +18,7 @@ void generaRuta(char *rutaTop, char *salidaRut){
     int links_matrix[nodos][nodos];
     archivo = fopen(rutaTop,"r");
     archivo_rut = fopen(salidaRut,"w");
-    archivo_top = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","w");
+    archivo_top = fopen("../proyectosimulacion/ArpaNet_new.top","w");
 
     //Se inicia la matriz de pesos
     for(i = 0; i < nodos; i++){
@@ -127,7 +127,7 @@ void generaRuta(char *rutaTop, char *salidaRut){
 
     fprintf(archivo_rut, "Rutas\tpor\tcnx.\t1\n");
     fprintf(archivo_rut, "Number\tof\tnodes:\t%d\n", nodos);
-    fprintf(archivo_rut, "Number\tof\tlinks:\t%d\n", enlaces);
+    fprintf(archivo_rut, "Number\tof\tlinks:\t%d\n", enlaces/2);
     fprintf(archivo_rut, "==================================================\n");
     fprintf(archivo_rut, "source\tdest.\thops\tpath\t(link\tids)\n");
     fprintf(archivo_rut, "==================================================");

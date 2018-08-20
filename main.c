@@ -379,13 +379,18 @@ void readNetwork(int numIteracion){
     switch(numIteracion)//1 por cada topologia)(0 a 5)
     {
         case 0:
-            /*fp = fopen("EuroCore.rut", "r");
+            generaRuta("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","../proyectosimulacion/ArpaNet.rut");
+            fp = fopen("../proyectosimulacion/ArpaNet.rut","r");
+            CAPACIDAD = 1;
+            break;
+        /*case 0:
+            fp = fopen("EuroCore.rut", "r");
             CAPACIDAD = 8;
-            printf("EuroCore.rut;");*/
+            printf("EuroCore.rut;");
             generaRuta("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut");
             fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut","r");
             CAPACIDAD = 1;
-            break;
+            break;*/
         default://case 1:
             /*fp = fopen("EON.rut", "r");
             CAPACIDAD = 20;
@@ -428,10 +433,10 @@ void readNetwork(int numIteracion){
     maxHops();
     enlacesCriticos();
     printf("\nenlaces Criticos: %i, %i, %i; ", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
-    crear_top(enlacesCritico[0],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1.top");
-    crear_top(enlacesCritico[1],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet2.top");
-    crear_top(enlacesCritico[2],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet3.top");
-    generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
+    crear_top(enlacesCritico[0],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet1.top");
+    crear_top(enlacesCritico[1],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet2.top");
+    crear_top(enlacesCritico[2],"../proyectosimulacion/ArpaNet_new.top","../proyectosimulacion/ArpaNet3.top");
+    generaRuta2("../proyectosimulacion/ArpaNet1.top","../proyectosimulacion/ArpaNet_1.rut");
     //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
     fclose(fp);
     //_____________________________________________

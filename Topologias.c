@@ -17,6 +17,7 @@ void crear_top(int link,const char *topologia,const char *texto){
 
     int linea1;
     int linea2;
+    int wea = link%2;
 
     if (link%2==0){ //si la linea es par o es 0
         linea1=link;
@@ -27,21 +28,25 @@ void crear_top(int link,const char *topologia,const char *texto){
         linea2=link;
     }
 
+    for (int i = 0; i < 6; i++)
+    {
+        fgets(caracteres,100,archivo);
+        fputs(caracteres, archivo1);
+    }
+
     while(fgets(caracteres,100,archivo) != NULL){
         strcpy(temp,caracteres);
         ptr = strtok(temp,"\t");
-        if (strlen(ptr)>40){//============
+        ptr = strtok(NULL,"\t");
+        ptr = strtok(NULL,"\t");
+        ptr = strtok(NULL,"\t");
+        if(atoi(ptr)==linea1 || atoi(ptr)==linea2){
+            continue;
+        }
+        else
+            printf("%s\n", caracteres);
             fputs(caracteres, archivo1);
-        }
-        else{
-            ptr = strtok(NULL,"\t");
-            ptr = strtok(NULL,"\t");
-            if(atoi(ptr+2)==linea1 || atoi(ptr+2)==linea2){
-                continue;
-            }
-            else
-                fputs(caracteres, archivo1);
-        }
+        
     }
 
     fclose(archivo);
