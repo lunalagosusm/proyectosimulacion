@@ -431,8 +431,8 @@ void readNetwork(int numIteracion){
     crear_top(enlacesCritico[0],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1.top");
     crear_top(enlacesCritico[1],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet2.top");
     crear_top(enlacesCritico[2],"/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet3.top");
-    //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
-    generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
+    generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
+    //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
     fclose(fp);
     //_____________________________________________
 }
