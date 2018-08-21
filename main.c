@@ -205,7 +205,6 @@ void enlacesCriticos(){
         printf("%i ",cuentaEnlaces[i]);
     }
     printf("numero enlaces : %i\n", i);
-    printf("PRUEBA0\n");
     for (j = 0; j < LINKS; ++j)
     {
         if(max[0] < cuentaEnlaces[j]){
@@ -216,7 +215,6 @@ void enlacesCriticos(){
             max[0] = max[0];
         }
     }
-    printf("PRUEBA1\n");
     for (j = 0; j < LINKS; ++j)
     {
         if( (max[1] < cuentaEnlaces[j]) && (j != enlacesCritico[0]) ){
@@ -227,7 +225,6 @@ void enlacesCriticos(){
             max[1] = max[1];
         }
     }
-    printf("PRUEBA2\n");
     for (j = 0; j < LINKS; ++j)
     {
         //printf("j:%i,",j );
@@ -241,9 +238,7 @@ void enlacesCriticos(){
             enlacesCritico[2] = enlacesCritico[2];
         }
     }
-    printf("PRUEBA3\n");
     printf("enlaces criticos: %i,%i,%i;\n", enlacesCritico[0],enlacesCritico[1],enlacesCritico[2]);
-//   printf("PRUEBA4\n");
 }
 void dataRed(FILE *fp, int datosRed[3]){
     char linea[100];

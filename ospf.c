@@ -107,7 +107,7 @@ void generaRuta(char *rutaTop, char *salidaRut){
             }
         }
     }
-    fprintf(archivo_top, "\n");
+    fprintf(archivo_top, "\r\n");
     fclose(archivo_top);
     fclose(archivo);
 
@@ -118,14 +118,15 @@ void generaRuta(char *rutaTop, char *salidaRut){
 //            printf("\n%d --> %d: %d", i, j, cost_matrix[i][j]);
 //        }
 //    }
-/*
-    printf("\n");
+
+//    printf("\n");
+    printf("\nGENERA RUTA 1\n");
     printf("Rutas\tpor\tcnx.\t1\n");
     printf("Number\tof\tnodes:\t%d\n", nodos);
     printf("Number\tof\tlinks:\t%d\n", enlaces);
     printf("==================================================\n");
     printf("source\tdest.\thops\tpath\t(link\tids)\n");
-    printf("==================================================");*/
+    printf("==================================================");
 
     fprintf(archivo_rut, "Rutas\tpor\tcnx.\t1\n");
     fprintf(archivo_rut, "Number\tof\tnodes:\t%d\n", nodos);
@@ -137,7 +138,7 @@ void generaRuta(char *rutaTop, char *salidaRut){
     for (int i = 0; i < nodos; i++){
         ospf(i, nodos, cost_matrix, links_matrix, archivo_rut);
     }
-    //printf("\n");
+    printf("\n");
     fclose(archivo_rut);
 
 }
@@ -193,15 +194,15 @@ void generaRuta2(char *rutaTop, char *salidaRut){
 
             if(nodos_line == 0){
                 tipo_red = atoi(caracteres);
-                printf("\nGENERARUTA2 Tipo de Red: %d\n", tipo_red);
+                //printf("\nTipo de Red: %d\n", tipo_red);
             }
             else if(nodos_line == 1){
                 nodos = atoi(caracteres);
-                printf("Nodos: %d\n", nodos);
+                //printf("Nodos: %d\n", nodos);
             }
             else if(nodos_line == 2){
                 enlaces = atoi(caracteres);
-                printf("Enlaces: %d\n\n", enlaces);
+                //printf("Enlaces: %d\n\n", enlaces);
             }
             else if(nodos_line > 5){
                 cont_num_line++;
@@ -230,10 +231,17 @@ void generaRuta2(char *rutaTop, char *salidaRut){
                 cost_matrix[fuente][destino] = peso;
                 cost_matrix[destino][fuente] = peso;
                 links_matrix[fuente][destino] = enlace;
-                printf("ID enlace %d a %d: %d (%d)\n", fuente, destino, links_matrix[fuente][destino],cost_matrix[fuente][destino]);
+                //printf("ID enlace %d a %d: %d (%d)\n", fuente, destino, links_matrix[fuente][destino],cost_matrix[fuente][destino]);
             }
         }
     }
+
+//    for(int i = 0; i < nodos; i++){
+//        for(int j = 0; j < nodos; j++){
+//            printf("\n\nid de %d --> %d: %d(%d)", i, j, links_matrix[i][j], cost_matrix[i][j]);
+//        }
+//    }
+
     fclose(archivo);
 
 //    printf("\n Enter the no of routers: %d", nodos);
@@ -244,7 +252,7 @@ void generaRuta2(char *rutaTop, char *salidaRut){
 //        }
 //    }
 
-    printf("\n");
+    printf("\n\nGENERA RUTA 2\n");
     printf("Rutas\tpor\tcnx.\t1\n");
     printf("Number\tof\tnodes:\t%d\n", nodos);
     printf("Number\tof\tlinks:\t%d\n", enlaces);
@@ -318,7 +326,7 @@ void ospf(int src_router, int nodos, int cost_matrix[nodos][nodos],int links_mat
         printf("%d\t", hops);
         fprintf(archivo_rut, "%d\t", hops);
 
-        for(int k = 0; k < hops; k++){
+        for(int k = hops-1; k >= 0; k--){
             printf("%d\t", id_array[k]);
             fprintf(archivo_rut, "%d\t", id_array[k]);
         }
