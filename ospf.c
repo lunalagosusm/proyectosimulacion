@@ -2,11 +2,14 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <time.h>
 #include "ospf.h"
 
 #define MAX_NUMERO 4
 
 void generaRuta(char *rutaTop, char *salidaRut){
+    time_t t;
+    srand((unsigned) time(&t));
     int i, j;
     FILE *archivo, *archivo_rut, *archivo_top;
     short int construyendo_numero = 0;
@@ -97,7 +100,7 @@ void generaRuta(char *rutaTop, char *salidaRut){
             nodos_line++;
             cont_num_line = 0;
             if(nodos_line > 6){
-                int random = rand() % (10-1+1) + 1;
+                int random = ((int) rand() % (10-1+1) + 1);
                 cost_matrix[fuente][destino] = random;
                 cost_matrix[destino][fuente] = random;
                 links_matrix[fuente][destino] = enlace/2;

@@ -68,7 +68,7 @@ int main(){
     	switch(i){
     		case 0:
                 readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "../proyectosimulacion/ArpaNet.rut" );
-                //readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut" );
+                //readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/UKNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/UKNet.rut" );
                 maxHops();
     			enlacesCriticos();
     			break;
@@ -95,7 +95,7 @@ int main(){
         {
             Ini();
            
-            while(llegadasTot<pow(10,3))
+            while(llegadasTot<pow(10,5))
             {
                 p = popEvento();//Extrae evento
                 if(p->tipo < USUARIOS) Arribo(p);//Verifica si es arribo o salida
