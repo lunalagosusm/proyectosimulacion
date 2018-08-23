@@ -67,8 +67,8 @@ int main(){
     {
     	switch(i){
     		case 0:
-                //readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "../proyectosimulacion/ArpaNet.rut" );
-                readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut" );
+                readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "../proyectosimulacion/ArpaNet.rut" );
+                //readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut" );
                 maxHops();
     			enlacesCriticos();
     			break;
