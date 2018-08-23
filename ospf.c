@@ -100,9 +100,9 @@ void generaRuta(char *rutaTop, char *salidaRut){
             nodos_line++;
             cont_num_line = 0;
             if(nodos_line > 6){
-                int random = ((int) rand() % (10-1+1) + 1);
-                cost_matrix[fuente][destino] = random;
-                cost_matrix[destino][fuente] = random;
+                //int random = ((int) rand() % (10-1+1) + 1);
+                cost_matrix[fuente][destino] = 1;
+                cost_matrix[destino][fuente] = 1;
                 links_matrix[fuente][destino] = enlace/2;
                 //links_matrix[destino][fuente] = enlace;
                 //printf("ID enlace %d a %d: %d (%d)\n", fuente, destino, links_matrix[fuente][destino],cost_matrix[fuente][destino]);
