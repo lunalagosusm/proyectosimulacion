@@ -54,6 +54,8 @@ void maxHops();
 int main(){
     Evento *p; //puntero al scheduler
     int i,j,k,w,l;
+    float ER[2];
+    float IC[2];
     p = NULL;
     prob_Bloq = 1.0;
     carga = 0.3;
@@ -62,12 +64,16 @@ int main(){
     MU = (1.0/ton);
     LAMBDA = 1.0/(ton+toff);
     LAMBDAPRIMA = 1.0/(toff);
-
+    ER[0]= prob_Bloq - prob_Bloq*(0.05/2);
+    ER[1]= prob_Bloq + prob_Bloq*(0.05/2);
+    int cont;
+    cont = 1;
+  
     for(i=0; i < 4; ++i)// Ejecucion 6 simulaciones (una por red)
     {
     	switch(i){
     		case 0:
-                readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "../proyectosimulacion/ArpaNet.rut" );
+                readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/EON.top", "../proyectosimulacion/EON.rut" );
                 //readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut" );
                 maxHops();
     			enlacesCriticos();
@@ -95,16 +101,32 @@ int main(){
         {
             Ini();
            
-            while(llegadasTot<pow(10,5))
+            while(/*llegadasTot<pow(10,6)*/ 1)
             {
                 p = popEvento();//Extrae evento
                 if(p->tipo < USUARIOS) Arribo(p);//Verifica si es arribo o salida
                 else Salida(p);
                 free(p);//Libera memoria
-            }
+            	prob_Bloq = ((float)blocked/(float)cont);
 
-            prob_Bloq = ((float)blocked/(float)llegadasTot);
-            printf("(%i,%i);",CAPACIDAD, blocked);
+   				if (cont > 500)
+   				{
+   					int x;
+   					ER[0]= prob_Bloq - prob_Bloq*(0.05/2);
+    				ER[1]= prob_Bloq + prob_Bloq*(0.05/2);
+   					x = sqrt(prob_Bloq*(1 - prob_Bloq)/cont);
+	                IC[0] = prob_Bloq -1.96*x;
+	   				IC[1] = prob_Bloq+1.96*x;
+	                if ((IC[0]>=ER[0])&&(IC[1]<=ER[1]))
+	                {
+	                	break;
+	                }
+  
+   				}
+   				cont+=1;
+            }
+            printf("\n(%i,%i)(llegadasT:%i)IC[%f,%f]ER[%f,%f];\n",CAPACIDAD, blocked,cont,IC[0],IC[1],ER[0],ER[1]);
+            cont = 1;
             ++CAPACIDAD;
 
             freeScheduler();//Liberar Scheduler para nueva iteración
