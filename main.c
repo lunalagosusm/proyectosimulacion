@@ -30,7 +30,7 @@ int * seed;//Arreglo de Semillas lcgrand
 int datosRed[3];//Datos generales de la red (nro. cnx, nro. nodos y nro. links)
 int **datosRutas;//Matriz con todas los datos de cada conexion; exepto el path
 int **datosPath;//Matriz con el path de cada conexion
-float prob_Bloq;
+double prob_Bloq;
 //float *Prob_user;//promedio de probabilidades por largo de ruta
 int enlacesCritico[3];
 
@@ -54,8 +54,8 @@ void maxHops();
 int main(){
     Evento *p; //puntero al scheduler
     int i,j,k,w,l;
-    float ER[2];
-    float IC[2];
+    double ER[2];
+    double IC[2];
     p = NULL;
     prob_Bloq = 1.0;
     carga = 0.3;
@@ -64,8 +64,13 @@ int main(){
     MU = (1.0/ton);
     LAMBDA = 1.0/(ton+toff);
     LAMBDAPRIMA = 1.0/(toff);
-    ER[0]= prob_Bloq - prob_Bloq*(0.05/2);
-    ER[1]= prob_Bloq + prob_Bloq*(0.05/2);
+
+    ER[0]= 1.0;
+    ER[1]= 1.0;
+
+    IC[0]= 0.0;
+    IC[1]= 2.0;
+
     int cont;
     cont = 1;
   
@@ -97,36 +102,36 @@ int main(){
                 break;
     	}
 
-        while(prob_Bloq>0.0)//Criterio de parada Simulador
+        while(prob_Bloq > 0.0)//Criterio de parada Simulador
         {
             Ini();
            
 
-            while(/*llegadasTot<pow(10,6)*/ 1)
+            while(1)
             {
                 p = popEvento();//Extrae evento
                 if(p->tipo < USUARIOS) Arribo(p);//Verifica si es arribo o salida
                 else Salida(p);
                 free(p);//Libera memoria
-            	prob_Bloq = ((float)blocked/(float)cont);
 
-   				if (cont > 500)
+                if (cont > 100 )
    				{
-   					int x;
+                    prob_Bloq = ((double)blocked/(double)cont);
+                    double x;
    					ER[0]= prob_Bloq - prob_Bloq*(0.05/2);
     				ER[1]= prob_Bloq + prob_Bloq*(0.05/2);
    					x = sqrt(prob_Bloq*(1 - prob_Bloq)/cont);
-	                IC[0] = prob_Bloq -1.96*x;
-	   				IC[1] = prob_Bloq+1.96*x;
-	                if ((IC[0]>=ER[0])&&(IC[1]<=ER[1]))
-	                {
-	                	break;
-	                }
+                    IC[0] = prob_Bloq - 1.96*x;
+                    IC[1] = prob_Bloq + 1.96*x;
+                    if ((IC[0]>=ER[0])&&(IC[1]<=ER[1]))
+                    {
+                        break;
+                    }
   
    				}
    				cont+=1;
             }
-            printf("\n(%i,%i)(llegadasT:%i)IC[%f,%f]ER[%f,%f];\n",CAPACIDAD, blocked,cont,IC[0],IC[1],ER[0],ER[1]);
+            printf("\n(%i,%i)(llegadasT:%i)(P.Bloq: %lf) IC[%lf,%f] ER[%lf,%lf]\n",CAPACIDAD, blocked, cont, prob_Bloq, IC[0], IC[1], ER[0], ER[1]);
             cont = 1;
             ++CAPACIDAD;
 
