@@ -22,16 +22,16 @@ int LINKS;//Numero de enlaces en la red
 int MAX_HOPS;//Maximo largo de ruta
 int COUNTLCG[101];
 int CAPACIDAD;//Capacidad de cada enlace
-float * cnxBlocked;//Bloqueos por usuario
-float * cnxLlegadas;//llegadas por usuario
-float * cnxEject;//llegadas ejecutadas por usuario
+//float * cnxBlocked;//Bloqueos por usuario
+//float * cnxLlegadas;//llegadas por usuario
+//float * cnxEject;//llegadas ejecutadas por usuario
 int * canalesLibres;//Para llevar cuenta de los canales libres
 int * seed;//Arreglo de Semillas lcgrand
 int datosRed[3];//Datos generales de la red (nro. cnx, nro. nodos y nro. links)
 int **datosRutas;//Matriz con todas los datos de cada conexion; exepto el path
 int **datosPath;//Matriz con el path de cada conexion
 float prob_Bloq;
-float *Prob_user;//promedio de probabilidades por largo de ruta
+//float *Prob_user;//promedio de probabilidades por largo de ruta
 int enlacesCritico[3];
 
 void dataRed(FILE *fp, int datosRed[3]);//Obtiene datos generales de la red
@@ -110,7 +110,7 @@ int main(){
             freeScheduler();//Liberar Scheduler para nueva iteración
         }
         /*___Se calcula el promedio de las probabilidades por usuario y largo de red*/
-        printf("probuser;");
+        /*printf("probuser;");
         for (l = 1; l <= MAX_HOPS; ++l)
         {
             k=0;
@@ -149,10 +149,10 @@ int main(){
         free(datosRutas);
         free(seed);
         free(canalesLibres);
-        free(cnxBlocked);
-        free(cnxEject);
-        free(cnxLlegadas);
-        free(Prob_user);
+        //free(cnxBlocked);
+        //free(cnxEject);
+       // free(cnxLlegadas);
+        //free(Prob_user);
     }
 }
 void maxHops(){
@@ -453,7 +453,7 @@ void Ini()//No existen salidas si no hay llegadas
     {
         COUNTLCG[i] = 0;
     }
-    cnxBlocked = malloc(USUARIOS*sizeof(float));
+    /*cnxBlocked = malloc(USUARIOS*sizeof(float));
     cnxLlegadas = malloc(USUARIOS*sizeof(float));
     cnxEject = malloc(USUARIOS*sizeof(float));
     for (i = 0; i < USUARIOS; ++i)
@@ -461,7 +461,7 @@ void Ini()//No existen salidas si no hay llegadas
         cnxBlocked[i] = 0;
         cnxLlegadas[i] = 0;
         cnxEject[i] = 0;
-    }
+    }*/
     //___INICIALIZACION DE CANALES LIBRES_____
     canalesLibres = malloc((LINKS)*sizeof(int));//Arreglo que maneja los canales libres
 
@@ -496,11 +496,11 @@ void Ini()//No existen salidas si no hay llegadas
             ++j;
         }
     }
-    Prob_user  = malloc(MAX_HOPS*sizeof(float));
+   /* Prob_user  = malloc(MAX_HOPS*sizeof(float));
     for (i = 0; i < MAX_HOPS; ++i)
     {
             Prob_user[i] = 0;
-    }
+    }*/
 }
 float calculaTiempo(int tipo, float tasaMedia) //Calcula un tiempo que sera usado para obtener tiempos futuros
 {
@@ -564,18 +564,18 @@ void Arribo(Evento *p)
     {
         restaCanal(eventoArribo); //se ocupa un espacio el servidor
         llegadasExe += 1;
-        cnxEject[eventoArribo->tipo] +=1 ;
+        //cnxEject[eventoArribo->tipo] +=1 ;
         generaAS((eventoArribo->tipo)+USUARIOS, MU, tiempo_actual, eventoArribo->source,eventoArribo->dest,eventoArribo->hops,eventoArribo->path);//Genera salida
     }
     else//No hay espacio en el servidor, se genera otra llegada
     {
         blocked+=1;
-        cnxBlocked[eventoArribo->tipo]+=1;
+        //cnxBlocked[eventoArribo->tipo]+=1;
         generaAS(eventoArribo->tipo, LAMBDAPRIMA, tiempo_actual,eventoArribo->source,eventoArribo->dest,eventoArribo->hops,eventoArribo->path);//Genera arribo
     }
 
     llegadasTot = llegadasExe + blocked;
-    cnxLlegadas[eventoArribo->tipo] = cnxEject[eventoArribo->tipo] + cnxBlocked[eventoArribo->tipo];
+    //cnxLlegadas[eventoArribo->tipo] = cnxEject[eventoArribo->tipo] + cnxBlocked[eventoArribo->tipo];
 }
 void Salida(Evento* p)
 {
