@@ -439,15 +439,15 @@ void readNetwork2(int idCamino){
     //________MANEJO DE TEXTOS________________
     FILE *fp;
 
-    crear_top(idCamino,"../proyectosimulacion/Red_new.top","../proyectosimulacion/Red_falla.top");
-    generaRuta2("../proyectosimulacion/Red_falla.top","../proyectosimulacion/Red_falla.rut");
+    //crear_top(idCamino,"../proyectosimulacion/Red_new.top","../proyectosimulacion/Red_falla.top");
+    //generaRuta2("../proyectosimulacion/Red_falla.top","../proyectosimulacion/Red_falla.rut");
 
-    //crear_top(idCamino,"/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top");
-    //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut");
+    crear_top(idCamino,"/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top");
+    generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut");
 
-    fp = fopen("../proyectosimulacion/Red_falla.rut","r");
+    //fp = fopen("../proyectosimulacion/Red_falla.rut","r");
 
-    //fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut","r");
+    fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut","r");
 
     CAPACIDAD = 1;
 
