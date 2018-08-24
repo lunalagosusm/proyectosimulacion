@@ -53,7 +53,8 @@ void maxHops();
 
 int main(){
     Evento *p; //puntero al scheduler
-    int i,j,k,w,l;
+    FILE *texto;
+    int i,k;
     double ER[2];
     double IC[2];
     p = NULL;
@@ -73,31 +74,35 @@ int main(){
 
     int cont;
     cont = 1;
-  
-    for(i=0; i < 4; ++i)// Ejecucion 6 simulaciones (una por red)
+    texto = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Datos_a_graficar.txt", "a");
+
+    for(i=0; i < 4; ++i)// Ejecucion 4 simulaciones
     {
     	switch(i){
     		case 0:
-                readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/EON.top", "../proyectosimulacion/EON.rut" );
-                //readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/ArpaNet.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet.rut" );
+                //readNetwork("../proyectosimulacion/Redes_y_Rutas/Topologias/EON.top", "../proyectosimulacion/EON.rut" );
+                readNetwork("/Users/pedro/Desktop/proyecto/proyectosimulacion/Redes_y_Rutas/Topologias/EON.top", "/Users/pedro/Desktop/proyecto/proyectosimulacion/EON.rut" );
                 maxHops();
-    			enlacesCriticos();
+                enlacesCriticos();
     			break;
     		case 1:
     			readNetwork2(enlacesCritico[0]);
     			maxHops();
     			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");
-    			break;
+                fprintf(texto,"\n");
+                break;
     		case 2:
     			readNetwork2(enlacesCritico[1]);
     			maxHops();
     			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
-    			break;
+                fprintf(texto,"\n");
+                break;
     		case 3:
     			readNetwork2(enlacesCritico[2]);
     			maxHops();
     			//generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet1(PRUEBA).top","/Users/pedro/Desktop/proyecto/proyectosimulacion/ArpaNet_1.rut");    		
-    			break;
+                fprintf(texto,"\n");
+                break;
             default: 
                 break;
     	}
@@ -105,8 +110,6 @@ int main(){
         while(prob_Bloq > 0.0)//Criterio de parada Simulador
         {
             Ini();
-           
-
             while(1)
             {
                 p = popEvento();//Extrae evento
@@ -114,7 +117,7 @@ int main(){
                 else Salida(p);
                 free(p);//Libera memoria
 
-                if (cont > 100 )
+                if (cont > 300 )
    				{
                     prob_Bloq = ((double)blocked/(double)cont);
                     double x;
@@ -131,7 +134,8 @@ int main(){
    				}
    				cont+=1;
             }
-            printf("\n(%i,%i)(llegadasT:%i)(P.Bloq: %lf) IC[%lf,%f] ER[%lf,%lf]\n",CAPACIDAD, blocked, cont, prob_Bloq, IC[0], IC[1], ER[0], ER[1]);
+            printf("\n(%i,%i)\t(LlegadasT:%i)\t(P.Bloq: %lf)\tIC[%lf,%f]\tER[%lf,%lf]\n",CAPACIDAD, blocked, cont, prob_Bloq, IC[0], IC[1], ER[0], ER[1]);
+            fprintf(texto,"%d\t%lf:", CAPACIDAD, prob_Bloq);
             cont = 1;
             ++CAPACIDAD;
 
@@ -167,8 +171,14 @@ int main(){
             Prob_user[l-1] =(float) (Prob_user[l-1]/k);
             printf("%f;",Prob_user[l-1]);
         }
-        /*__ Se reinician variables y se libera la memoria para proxima iteración___*/
+        __ Se reinician variables y se libera la memoria para proxima iteración___*/
         prob_Bloq = 1.0;
+        ER[0]= 1.0;
+        ER[1]= 1.0;
+
+        IC[0]= 0.0;
+        IC[1]= 2.0;
+
         for (k = 0; k < NODOS*NODOS; ++k){
             free(datosPath[k]);
             free(datosRutas[k]);
@@ -272,7 +282,7 @@ void dataRed(FILE *fp, int datosRed[3]){
     char linea[100];
     char num[3];
 
-    int i, j, k;
+    int i, j;
     for(i = 0; i<3; i++){
         fgets(linea, 100,fp);
         for(j=0;j<100; j++){
@@ -445,15 +455,15 @@ void readNetwork2(int idCamino){
     //________MANEJO DE TEXTOS________________
     FILE *fp;
 
-    crear_top(idCamino,"../proyectosimulacion/Red_new.top","../proyectosimulacion/Red_falla.top");
-    generaRuta2("../proyectosimulacion/Red_falla.top","../proyectosimulacion/Red_falla.rut");
+    //crear_top(idCamino,"../proyectosimulacion/Red_new.top","../proyectosimulacion/Red_falla.top");
+    //generaRuta2("../proyectosimulacion/Red_falla.top","../proyectosimulacion/Red_falla.rut");
 
-    //crear_top(idCamino,"/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top");
-    //generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut");
+    crear_top(idCamino,"/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top");
+    generaRuta2("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.top","/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut");
 
-    fp = fopen("../proyectosimulacion/Red_falla.rut","r");
+    //fp = fopen("../proyectosimulacion/Red_falla.rut","r");
 
-    //fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut","r");
+    fp = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_falla.rut","r");
 
     CAPACIDAD = 1;
 
@@ -545,7 +555,7 @@ void generaAS(int tipo, float tasaMedia, float tiempo_actual, int source,
     float tiempo;
 
     p = NULL;
-    int i;
+    //int i;
 
     tiempo = calculaTiempo(tipo,tasaMedia) + tiempo_actual;
     p = crearEvento(tipo, tiempo, source, dest, hops, path);
@@ -583,7 +593,7 @@ void Arribo(Evento *p)
 {
     Evento *eventoArribo;
     float tiempo_actual;
-    float prob_Bloq;
+    //float prob_Bloq;
 
     eventoArribo = p;
     tiempo_actual = eventoArribo->tiempo;

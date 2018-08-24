@@ -22,8 +22,8 @@ void generaRuta(char *rutaTop, char *salidaRut){
     archivo = fopen(rutaTop,"r");
     archivo_rut = fopen(salidaRut,"w");
 
-    //archivo_top = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","w");
-    archivo_top = fopen("../proyectosimulacion/Red_new.top","w");
+    archivo_top = fopen("/Users/pedro/Desktop/proyecto/proyectosimulacion/Red_new.top","w");
+    //archivo_top = fopen("../proyectosimulacion/Red_new.top","w");
 
     //Se inicia la matriz de pesos
     for(i = 0; i < nodos; i++){
